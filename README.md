@@ -12,16 +12,12 @@
 ## Installation
 1. Clone this repository to your computer.
 2. Install the Flutter dependencies by running the following command:
-   '''
-   flutter pub get
-   '''
+   `flutter pub get`
 4. Make sure you have an emulator or physical device available to run the app.
 
 ## Usage
 1. Open the project using Flutter:
-   '''
-   flutter run
-   '''
+   `flutter run`
 3. The app will open on your emulator or device.
 4. Sign up or log in to your account.
 5. Start monitoring the sensors and utilize the fire detection feature if needed.
