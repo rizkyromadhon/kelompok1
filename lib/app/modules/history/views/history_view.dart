@@ -54,78 +54,36 @@ class HistoryView extends GetView<HistoryController> {
               ),
             )),
             backgroundColor: Colors.white),
-        body: Column(
-          children: [
-            Center(
-                child: Container(
-              width: 330,
-              height: 190,
-              decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 2),
-                  borderRadius: BorderRadius.circular(10)),
-              child: const Column(
-                children: [
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                      child: Text(
-                    'Sensor Aktif',
-                    style: TextStyle(
-                        fontFamily: 'Lexend',
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
-                  )),
-                  Padding(
-                    padding: EdgeInsets.only(right: 40, top: 20),
-                    child: Text(
-                      '1. Aktif pada 24-September-2023 14:50',
-                      style: TextStyle(
-                          fontFamily: 'Lexend',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 40, top: 10),
-                    child: Text(
-                      '2. Aktif pada 25-September-2023 12:36',
-                      style: TextStyle(
-                          fontFamily: 'Lexend',
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  )
-                ],
-              ),
-            )),
-            const SizedBox(
-              height: 25,
-            ),
-            Center(
-              child: Container(
-                width: 330,
-                height: 190,
+        body: LayoutBuilder(builder: (context, constraints) {
+          double screenWidth = constraints.maxWidth;
+          double screenHeight = constraints.maxHeight;
+          return Column(
+            children: [
+              Center(
+                  child: Container(
+                width: screenWidth * 0.9,
+                height: screenHeight * 0.3,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 2),
                     borderRadius: BorderRadius.circular(10)),
-                child: const Column(
+                child: Column(
                   children: [
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
-                    Center(
+                    const Center(
                         child: Text(
-                      'Sensor Mati',
+                      'Sensor DHT11',
                       style: TextStyle(
                           fontFamily: 'Lexend',
-                          fontSize: 25,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold),
                     )),
                     Padding(
-                      padding: EdgeInsets.only(right: 40, top: 20),
-                      child: Text(
-                        '1. Mati pada 24-September-2023 19:50',
+                      padding: EdgeInsets.only(
+                          right: screenWidth * 0.12, top: screenHeight * 0.03),
+                      child: const Text(
+                        '1. Aktif pada 24-September-2023 14:50',
                         style: TextStyle(
                             fontFamily: 'Lexend',
                             fontSize: 15,
@@ -133,55 +91,108 @@ class HistoryView extends GetView<HistoryController> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(right: 40, top: 10),
-                      child: Text(
-                        '2. Mati pada 25-September-2023 08:36',
+                      padding: EdgeInsets.only(
+                          right: screenWidth * 0.12, top: screenHeight * 0.03),
+                      child: const Text(
+                        '2. Aktif pada 25-September-2023 12:36',
                         style: TextStyle(
                             fontFamily: 'Lexend',
                             fontSize: 15,
                             fontWeight: FontWeight.w500),
                       ),
-                    )
+                    )     
                   ],
                 ),
+              )),
+              const SizedBox(
+                height: 25,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 100, top: 10),
-              child: ElevatedButton(
-                  onPressed: () {
-                    _showAlertDialog(context);
-                  },
-                  style: ButtonStyle(
-                    backgroundColor: MaterialStateProperty.all<Color>(
-                        const Color(0xFFB90000)),
-                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                    ),
-                    fixedSize:
-                        MaterialStateProperty.all<Size>(const Size(225, 51)),
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+              Center(
+                child: Container(
+                  width: screenWidth * 0.9,
+                  height: screenHeight * 0.3,
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black, width: 2),
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
                     children: [
-                      Text(
-                        'Bersihkan Histori Sensor',
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Center(
+                          child: Text(
+                        'Sensor MQ-2',
                         style: TextStyle(
                             fontFamily: 'Lexend',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.white),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      )),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: screenWidth * 0.12,
+                            top: screenHeight * 0.03),
+                        child: const Text(
+                          '1. Mati pada 24-September-2023 19:50',
+                          style: TextStyle(
+                              fontFamily: 'Lexend',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                        ),
                       ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: screenWidth * 0.12,
+                            top: screenHeight * 0.03),
+                        child: const Text(
+                          '2. Mati pada 25-September-2023 08:36',
+                          style: TextStyle(
+                              fontFamily: 'Lexend',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      )
                     ],
-                  )),
-            ),
-            const SizedBox(
-              height: 75,
-            ),
-            const Image(image: AssetImage('assets/images/logo.png'))
-          ],
-        ));
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: screenWidth * 0.28, top: screenHeight * 0.03),
+                child: ElevatedButton(
+                    onPressed: () {
+                      _showAlertDialog(context);
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          const Color(0xFFB90000)),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                      ),
+                      fixedSize: MaterialStateProperty.all<Size>(
+                          Size(screenWidth * 0.6, screenHeight * 0.08)),
+                    ),
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Bersihkan Histori Sensor',
+                          style: TextStyle(
+                              fontFamily: 'Lexend',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white),
+                        ),
+                      ],
+                    )),
+              ),
+              SizedBox(
+                height: screenHeight * 0.14,
+              ),
+              const Image(image: AssetImage('assets/images/logo.png'))
+            ],
+          );
+        }));
   }
 }
 

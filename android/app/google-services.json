@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "984716703319",
+    "project_id": "apitronik",
+    "storage_bucket": "apitronik.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984716703319:android:b9a8bcc9b4cc2286369512",
+        "android_client_info": {
+          "package_name": "com.example.apitronik_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv2U4UENUxW3jbgjBoUP9sP7BnHZJMO-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

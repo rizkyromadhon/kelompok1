@@ -3,5 +3,5 @@ import 'package:logger/logger.dart';
 
 class CallController extends GetxController {
   var logger = Logger();
-  bool callFunction = false;
+  bool callFunction = true;
 }

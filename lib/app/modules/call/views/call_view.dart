@@ -56,110 +56,56 @@ class CallView extends GetView<CallController> {
             ),
           )),
           backgroundColor: Colors.white),
-      body: Column(children: [
-        Center(
-          child: Container(
-            width: 320,
-            height: 100,
-            decoration: BoxDecoration(
-                color: const Color(0xFFB90000),
-                borderRadius: BorderRadius.circular(10)),
-            child: const Center(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(top: 11),
-                    child: Image(image: AssetImage('assets/images/danger.png')),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(right: 20, left: 20, top: 5),
-                    child: Center(
-                      child: Text(
-                        'Telepon darurat hanya bisa digunakan jika terdeteksi kebakaran!',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Lexend',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700),
+      body: LayoutBuilder(builder: (context, constraints) {
+        double screenWidth = constraints.maxWidth;
+        double screenHeight = constraints.maxHeight;
+        return Column(children: [
+          Center(
+            child: Container(
+              width: screenWidth * 0.9,
+              height: screenHeight * 0.15,
+              decoration: BoxDecoration(
+                  color: const Color(0xFFB90000),
+                  borderRadius: BorderRadius.circular(10)),
+              child: Center(
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: screenHeight * 0.02),
+                      child: const Image(
+                          image: AssetImage('assets/images/danger.png')),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                          right: screenWidth * 0.02,
+                          left: screenWidth * 0.02,
+                          top: screenHeight * 0.010),
+                      child: const Center(
+                        child: Text(
+                          'Telepon darurat hanya bisa digunakan jika terdeteksi kebakaran!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Lexend',
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-        const SizedBox(
-          height: 32,
-        ),
-        Opacity(
-          opacity: controller.callFunction ? 1.0 : 0.4,
-          child: ElevatedButton(
-              onPressed: controller.callFunction
-                  ? () async {
-                      const phoneNumber = '110';
-
-                      final uri = Uri(scheme: 'tel', path: phoneNumber);
-
-                      if (await canLaunchUrl(uri)) {
-                        await launchUrlString(uri.toString());
-                      } else {
-                        controller.logger
-                            .d('Tidak dapat membuka aplikasi telepon');
-                      }
-                    }
-                  : null,
-              style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(const Color(0xFFFFFFFF)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: const BorderSide(color: Colors.black54, width: 2)),
-                ),
-                fixedSize: MaterialStateProperty.all<Size>(const Size(320, 55)),
-              ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image(
-                      width: 25,
-                      height: 25,
-                      image: AssetImage('assets/images/phone.png')),
-                  SizedBox(
-                    width: 24,
-                  ),
-                  Text(
-                    'Polisi',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Lexend',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  SizedBox(
-                    width: 150,
-                  ),
-                  Text(
-                    '110',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Lexend',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              )),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: Opacity(
+          SizedBox(
+            height: screenHeight * 0.05,
+          ),
+          Opacity(
             opacity: controller.callFunction ? 1.0 : 0.4,
             child: ElevatedButton(
                 onPressed: controller.callFunction
                     ? () async {
-                        const phoneNumber = '113';
+                        const phoneNumber = '110';
 
                         final uri = Uri(scheme: 'tel', path: phoneNumber);
 
@@ -176,36 +122,36 @@ class CallView extends GetView<CallController> {
                       MaterialStateProperty.all<Color>(const Color(0xFFFFFFFF)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: const BorderSide(color: Colors.black54, width: 2),
-                    ),
+                        borderRadius: BorderRadius.circular(10),
+                        side:
+                            const BorderSide(color: Colors.black54, width: 2)),
                   ),
-                  fixedSize:
-                      MaterialStateProperty.all<Size>(const Size(320, 55)),
+                  fixedSize: MaterialStateProperty.all<Size>(
+                      Size(screenWidth * 0.9, screenHeight * 0.09)),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Image(
+                    const Image(
                         width: 25,
                         height: 25,
                         image: AssetImage('assets/images/phone.png')),
                     SizedBox(
-                      width: 24,
+                      width: screenWidth * 0.07,
                     ),
-                    Text(
-                      'Pemadam Kebakaran',
+                    const Text(
+                      'Polisi',
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Lexend',
-                          fontSize: 18,
+                          fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     SizedBox(
-                      width: 20,
+                      width: screenWidth * 0.435,
                     ),
-                    Text(
-                      '113',
+                    const Text(
+                      '110',
                       style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'Lexend',
@@ -215,76 +161,140 @@ class CallView extends GetView<CallController> {
                   ],
                 )),
           ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 25),
-          child: Opacity(
-            opacity: controller.callFunction ? 1.0 : 0.4,
-            child: ElevatedButton(
-                onPressed: controller.callFunction
-                    ? () async {
-                        const phoneNumber = '119';
+          Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: Opacity(
+              opacity: controller.callFunction ? 1.0 : 0.4,
+              child: ElevatedButton(
+                  onPressed: controller.callFunction
+                      ? () async {
+                          const phoneNumber = '113';
 
-                        final uri = Uri(scheme: 'tel', path: phoneNumber);
+                          final uri = Uri(scheme: 'tel', path: phoneNumber);
 
-                        if (await canLaunchUrl(uri)) {
-                          await launchUrlString(uri.toString());
-                        } else {
-                          controller.logger
-                              .d('Tidak dapat membuka aplikasi telepon');
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrlString(uri.toString());
+                          } else {
+                            controller.logger
+                                .d('Tidak dapat membuka aplikasi telepon');
+                          }
                         }
-                      }
-                    : null,
-                style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(const Color(0xFFFFFFFF)),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: const BorderSide(color: Colors.black54, width: 2),
+                      : null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFFFFFFFF)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(color: Colors.black54, width: 2),
+                      ),
                     ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                        Size(screenWidth * 0.9, screenHeight * 0.09)),
                   ),
-                  fixedSize:
-                      MaterialStateProperty.all<Size>(const Size(320, 55)),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Image(
-                        width: 25,
-                        height: 25,
-                        image: AssetImage('assets/images/phone.png')),
-                    SizedBox(
-                      width: 24,
-                    ),
-                    Text(
-                      'Ambulan',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Lexend',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      width: 118,
-                    ),
-                    Text(
-                      '119',
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontFamily: 'Lexend',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold),
-                    )
-                  ],
-                )),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Image(
+                          width: 25,
+                          height: 25,
+                          image: AssetImage('assets/images/phone.png')),
+                      SizedBox(
+                        width: screenWidth * 0.07,
+                      ),
+                      const Text(
+                        'Pemadam Kebakaran',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Lexend',
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.08,
+                      ),
+                      const Text(
+                        '113',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Lexend',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )),
+            ),
           ),
-        ),
-        const SizedBox(
-          height: 197,
-        ),
-        const Image(image: AssetImage('assets/images/logo.png'))
-      ]),
+          Padding(
+            padding: const EdgeInsets.only(top: 25),
+            child: Opacity(
+              opacity: controller.callFunction ? 1.0 : 0.4,
+              child: ElevatedButton(
+                  onPressed: controller.callFunction
+                      ? () async {
+                          const phoneNumber = '119';
+
+                          final uri = Uri(scheme: 'tel', path: phoneNumber);
+
+                          if (await canLaunchUrl(uri)) {
+                            await launchUrlString(uri.toString());
+                          } else {
+                            controller.logger
+                                .d('Tidak dapat membuka aplikasi telepon');
+                          }
+                        }
+                      : null,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(
+                        const Color(0xFFFFFFFF)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        side: const BorderSide(color: Colors.black54, width: 2),
+                      ),
+                    ),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                        Size(screenWidth * 0.9, screenHeight * 0.09)),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      const Image(
+                          width: 25,
+                          height: 25,
+                          image: AssetImage('assets/images/phone.png')),
+                      SizedBox(
+                        width: screenWidth * 0.07,
+                      ),
+                      const Text(
+                        'Ambulan',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Lexend',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        width: screenWidth * 0.35,
+                      ),
+                      const Text(
+                        '119',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Lexend',
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  )),
+            ),
+          ),
+          SizedBox(
+            height: screenHeight * 0.32,
+          ),
+          const Image(image: AssetImage('assets/images/logo.png'))
+        ]);
+      }),
     );
   }
 }

@@ -13,6 +13,8 @@ abstract class Routes {
   static const CALL = _Paths.CALL;
   static const HISTORY = _Paths.HISTORY;
   static const REALTIME = _Paths.REALTIME;
+  static const LOGOUT = _Paths.LOGOUT;
+  static const SPLASH = _Paths.SPLASH;
 }
 
 abstract class _Paths {
@@ -25,4 +27,6 @@ abstract class _Paths {
   static const CALL = '/call';
   static const HISTORY = '/history';
   static const REALTIME = '/realtime';
+  static const LOGOUT = '/logout';
+  static const SPLASH = '/splash';
 }
