@@ -101,9 +101,9 @@ class CallView extends GetView<CallController> {
             height: screenHeight * 0.05,
           ),
           Opacity(
-            opacity: controller.callFunction ? 1.0 : 0.4,
+            opacity: controller.callFunction.value ? 1.0 : 0.4,
             child: ElevatedButton(
-                onPressed: controller.callFunction
+                onPressed: controller.callFunction.value
                     ? () async {
                         const phoneNumber = '110';
 
@@ -164,9 +164,9 @@ class CallView extends GetView<CallController> {
           Padding(
             padding: const EdgeInsets.only(top: 25),
             child: Opacity(
-              opacity: controller.callFunction ? 1.0 : 0.4,
+              opacity: controller.callFunction.value ? 1.0 : 0.4,
               child: ElevatedButton(
-                  onPressed: controller.callFunction
+                  onPressed: controller.callFunction.value
                       ? () async {
                           const phoneNumber = '113';
 
@@ -228,9 +228,9 @@ class CallView extends GetView<CallController> {
           Padding(
             padding: const EdgeInsets.only(top: 25),
             child: Opacity(
-              opacity: controller.callFunction ? 1.0 : 0.4,
+              opacity: controller.callFunction.value ? 1.0 : 0.4,
               child: ElevatedButton(
-                  onPressed: controller.callFunction
+                  onPressed: controller.callFunction.value
                       ? () async {
                           const phoneNumber = '119';
 

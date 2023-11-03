@@ -1,12 +1,16 @@
 import 'package:apitronik_app/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/history_controller.dart';
 
+// ignore: must_be_immutable
 class HistoryView extends GetView<HistoryController> {
-  const HistoryView({Key? key}) : super(key: key);
+  HistoryView({Key? key}) : super(key: key);
+  final DatabaseReference historyRef = FirebaseDatabase.instance.ref();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,102 +66,101 @@ class HistoryView extends GetView<HistoryController> {
               Center(
                   child: Container(
                 width: screenWidth * 0.9,
-                height: screenHeight * 0.3,
+                height: screenHeight * 0.6,
                 decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 2),
                     borderRadius: BorderRadius.circular(10)),
                 child: Column(
                   children: [
-                    const SizedBox(
-                      height: 10,
+                    SizedBox(
+                      height: screenHeight * 0.02,
                     ),
                     const Center(
                         child: Text(
-                      'Sensor DHT11',
+                      'Histori Sensor',
                       style: TextStyle(
                           fontFamily: 'Lexend',
                           fontSize: 22,
                           fontWeight: FontWeight.bold),
                     )),
                     Padding(
-                      padding: EdgeInsets.only(
-                          right: screenWidth * 0.12, top: screenHeight * 0.03),
-                      child: const Text(
-                        '1. Aktif pada 24-September-2023 14:50',
-                        style: TextStyle(
-                            fontFamily: 'Lexend',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                          right: screenWidth * 0.12, top: screenHeight * 0.03),
-                      child: const Text(
-                        '2. Aktif pada 25-September-2023 12:36',
-                        style: TextStyle(
-                            fontFamily: 'Lexend',
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    )     
+                        padding: EdgeInsets.only(
+                            left: screenWidth * 0.025,
+                            top: screenHeight * 0.02),
+                        child: Obx(() {
+                          if (controller.historyData.isEmpty) {
+                            return Padding(
+                              padding: EdgeInsets.only(
+                                top: screenHeight * 0.21,
+                              ),
+                              child: const Center(
+                                child: Text('Tidak ada data histori',
+                                    style: TextStyle(
+                                        fontFamily: 'Lexend',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 16)),
+                              ),
+                            );
+                          } else {
+                            return SizedBox(
+                              height: screenHeight * 0.5,
+                              child: StreamBuilder(
+                                stream: historyRef.child('history').onValue,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    DataSnapshot data = snapshot.data!.snapshot;
+                                    if (data.value != null) {
+                                      Map<dynamic, dynamic> values =
+                                          data.value as Map<dynamic, dynamic>;
+                                      List<dynamic> historyList =
+                                          values.values.toList();
+
+                                      return ListView.builder(
+                                        itemCount: historyList.length,
+                                        itemBuilder: (context, index) {
+                                          String message =
+                                              historyList[index]['message'];
+                                          int itemNumber = index + 1;
+                                          return ListTile(
+                                            title: Text(
+                                              '$itemNumber. $message',
+                                              style: const TextStyle(
+                                                  fontFamily: 'Lexend',
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    } else {
+                                      return const Center(
+                                        child: Text('Tidak ada data histori',
+                                            style: TextStyle(
+                                                fontFamily: 'Lexend',
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 16)),
+                                      );
+                                    }
+                                  } else {
+                                    // Menunggu data
+                                    return const Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          }
+                        })),
                   ],
                 ),
               )),
-              const SizedBox(
-                height: 25,
-              ),
-              Center(
-                child: Container(
-                  width: screenWidth * 0.9,
-                  height: screenHeight * 0.3,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                      borderRadius: BorderRadius.circular(10)),
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      const Center(
-                          child: Text(
-                        'Sensor MQ-2',
-                        style: TextStyle(
-                            fontFamily: 'Lexend',
-                            fontSize: 25,
-                            fontWeight: FontWeight.bold),
-                      )),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            right: screenWidth * 0.12,
-                            top: screenHeight * 0.03),
-                        child: const Text(
-                          '1. Mati pada 24-September-2023 19:50',
-                          style: TextStyle(
-                              fontFamily: 'Lexend',
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            right: screenWidth * 0.12,
-                            top: screenHeight * 0.03),
-                        child: const Text(
-                          '2. Mati pada 25-September-2023 08:36',
-                          style: TextStyle(
-                              fontFamily: 'Lexend',
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+              SizedBox(
+                height: screenHeight * 0.02,
               ),
               Padding(
                 padding: EdgeInsets.only(
-                    left: screenWidth * 0.28, top: screenHeight * 0.03),
+                    left: screenWidth * 0.28, top: screenHeight * 0.02),
                 child: ElevatedButton(
                     onPressed: () {
                       _showAlertDialog(context);
@@ -196,6 +199,14 @@ class HistoryView extends GetView<HistoryController> {
   }
 }
 
+Future<void> clearHistory() async {
+  EasyLoading.show();
+  final DatabaseReference historyRef =
+      FirebaseDatabase.instance.ref().child('history');
+  await historyRef.remove();
+  EasyLoading.dismiss();
+}
+
 void _showAlertDialog(BuildContext context) {
   showDialog(
     context: context,
@@ -214,7 +225,8 @@ void _showAlertDialog(BuildContext context) {
         ),
         actions: [
           TextButton(
-            onPressed: () {
+            onPressed: () async {
+              await clearHistory();
               Navigator.of(context).pop();
               const snackBar =
                   SnackBar(content: Text('Histori Berhasil dihapus'));

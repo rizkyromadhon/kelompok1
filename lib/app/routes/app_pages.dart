@@ -60,7 +60,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.HISTORY,
-      page: () => const HistoryView(),
+      page: () => HistoryView(),
       transition: Transition.cupertinoDialog,
       transitionDuration: const Duration(milliseconds: 500),
       binding: HistoryBinding(),
